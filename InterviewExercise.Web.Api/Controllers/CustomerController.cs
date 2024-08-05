@@ -3,6 +3,7 @@ using InterviewExercise.Handling.Customers.Commands;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MediatR;
+using InterviewExercise.Dtos;
 
 namespace InterviewExercise.Web.Api.Controllers
 {
@@ -18,7 +19,8 @@ namespace InterviewExercise.Web.Api.Controllers
         {
             _mediator = mediator;
         }
-        [HttpPost()]
+
+        [HttpPost("")]
         [ProducesResponseType(typeof(CreateCustomerResponse), StatusCodes.Status201Created)]
         public async Task<IActionResult> CreateCustomer([FromBody] CustomerDto customer) 
         {
@@ -26,5 +28,15 @@ namespace InterviewExercise.Web.Api.Controllers
             var response = await _mediator.Send(request);
             return StatusCode(StatusCodes.Status201Created, response);
         }
+
+        [HttpPost("contactmethod")]
+        [ProducesResponseType(typeof(SuccessOrFailureDto), StatusCodes.Status200OK)]
+        public async Task<IActionResult> UpdateCustomerContactMethod([FromBody] UpdateCustomerContactMethodDto contactMethodDto)
+        {
+            var request = new UpdateCustomerContactMethod { UpdateContactMethodDto = contactMethodDto };
+            var response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
     }
 }

@@ -3,12 +3,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InterviewExercise.Data
 {
-    public class UnitOfWork: DbContext
+    public class UnitOfWork : DbContext
     {
         public UnitOfWork(DbContextOptions<UnitOfWork> options)
             : base(options) { }
 
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<CustomerContactMethod> CustomerContactMethods { get; set; }
         public DbSet<Invoice> Invoices { get; set; }
         public DbSet<InvoiceLine> InvoicesLine { get; set; }
 
@@ -54,6 +55,5 @@ namespace InterviewExercise.Data
         {
             await Database.EnsureCreatedAsync();
         }
-
     }
 }
