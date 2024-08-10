@@ -1,8 +1,7 @@
 ﻿namespace InterviewExercise.Dtos.Customers
 {
-    public class UpdateCustomerContactMethodDto: DtoBase
+    public class UpdateCustomerContactMethodDto: CustomerContactMethodDto
     {
-        public ContactType ContactType { get; set; }
-        public string Value { get; set; }
+        public Guid CustomerId { get; set; }
     }
 }

@@ -2,7 +2,7 @@
 using InterviewExercise.Dtos.Customers;
 using MediatR;
 
-namespace InterviewExercise.Handling.Customers.Commands
+namespace InterviewExercise.Commands.Customers
 {
     public class UpdateCustomerContactMethod: IRequest<SuccessOrFailureDto>
     {

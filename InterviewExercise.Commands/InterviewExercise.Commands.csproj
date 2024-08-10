@@ -10,10 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\InterviewExercise.Commands\InterviewExercise.Commands.csproj" />
-    <ProjectReference Include="..\InterviewExercise.Data\InterviewExercise.Data.csproj" />
     <ProjectReference Include="..\InterviewExercise.Dtos\InterviewExercise.Dtos.csproj" />
-    <ProjectReference Include="..\InterviewExercise.Queries\InterviewExercise.Queries.csproj" />
   </ItemGroup>
 
 </Project>

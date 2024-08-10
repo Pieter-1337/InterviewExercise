@@ -1,4 +1,6 @@
-﻿namespace InterviewExercise.Domain.Entities
+﻿using System.Collections.ObjectModel;
+
+namespace InterviewExercise.Domain.Entities
 {
     public class Customer : EntityBase
     {
@@ -12,8 +14,8 @@
 
         //If we use automapper set ignore attributes on the relationships!
         #region relationships
-        public virtual IEnumerable<CustomerContactMethod> CustomerContactMethods { get; set; } = Enumerable.Empty<CustomerContactMethod>();
-        public virtual IEnumerable<Invoice> Invoices { get; set; } = Enumerable.Empty<Invoice>();
+        public virtual ICollection<CustomerContactMethod> CustomerContactMethods { get; set; } = new Collection<CustomerContactMethod>();
+        public virtual ICollection<Invoice> Invoices { get; set; } = new Collection<Invoice>();
         #endregion
     }
 }

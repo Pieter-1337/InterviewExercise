@@ -14,6 +14,7 @@
     <ProjectReference Include="..\Handling\InterviewExercise.Handling.csproj" />
     <ProjectReference Include="..\InterviewExercise.CrossCutting\InterviewExercise.CrossCutting.csproj" />
     <ProjectReference Include="..\InterviewExercise.Data\InterviewExercise.Data.csproj" />
+    <ProjectReference Include="..\InterviewExercise.Validation\InterviewExercise.Validation.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,8 +1,12 @@
+using InterviewExercise.Commands;
 using InterviewExercise.CrossCutting.ConfigSections;
 using InterviewExercise.CrossCutting.Interfaces;
 using InterviewExercise.Data;
+using InterviewExercise.Dtos;
 using InterviewExercise.Handling;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Any;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +15,15 @@ ConfigureServices(builder.Services);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(opt =>
+{
+    //Convert ContactType enum to string values instead of ints so that the consumer of the api has a clear indication of what the enum entries mean
+    opt.MapType<ContactType>(() => new OpenApiSchema
+    {
+        Type = "string",
+        Enum = Enum.GetNames(typeof(ContactType)).Select(name => new OpenApiString(name)).ToArray()
+    });
+});
 
 var app = builder.Build();
 
@@ -27,7 +39,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-// Ensure Cosmos DB containers are created
+// Ensure Cosmos DB containers are present at startup of app
 using (var scope = app.Services.CreateScope())
 {
     var contextFactory = scope.ServiceProvider.GetRequiredService<IDbContextFactory<UnitOfWork>>();
@@ -53,6 +65,7 @@ void ConfigureServices(IServiceCollection services)
             databaseName: settings.DatabaseName
         );
     });
-    //Register handling services related to Mediatr, tucked away in it's own class lib for decoupling
+    //Register services related to Mediatr, tucked away in it's own class libs (Seperation of concerns...)
     services.AddHandling();
+    services.AddCommands();
 }

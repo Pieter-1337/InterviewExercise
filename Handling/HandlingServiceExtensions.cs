@@ -8,7 +8,7 @@ namespace InterviewExercise.Handling
     {
         public static IServiceCollection AddHandling(this IServiceCollection services)
         {
-            //Get all the queries, command and handlers from this class lib and register them within mediatr
+            //Get all handlers from this class lib and register them within mediatr
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
             return services;
         }
