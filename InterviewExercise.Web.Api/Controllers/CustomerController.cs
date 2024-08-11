@@ -1,5 +1,6 @@
 ﻿using InterviewExercise.Dtos.Customers;
 using InterviewExercise.Commands.Customers;
+using InterviewExercise.Queries.Customers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MediatR;
@@ -25,6 +26,21 @@ namespace InterviewExercise.Web.Api.Controllers
         {
             _mediator = mediator;
             _unitOfWork = unitOfWork;
+        }
+
+
+        /// <summary>
+        /// Get customer
+        /// </summary>
+        //GET api/customers
+        [HttpGet("")]
+        [ProducesResponseType(typeof(IEnumerable<CustomerDetailDto>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetCustomers()
+        {
+            var request = new GetCustomers();
+
+            var response = await _mediator.Send(request);
+            return Ok(response);
         }
 
         /// <summary>

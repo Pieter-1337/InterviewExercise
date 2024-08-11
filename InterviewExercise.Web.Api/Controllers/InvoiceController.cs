@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using InterviewExercise.Commands.Invoices;
+using InterviewExercise.Queries.Invoices;
 using FluentValidation.Results;
 using InterviewExercise.Data;
 using InterviewExercise.Validation.Commands.Invoices;
@@ -24,6 +25,20 @@ namespace InterviewExercise.Web.Api.Controllers
         {
             _mediator = mediator;
             _unitOfWork = unitOfWork;
+        }
+
+        /// <summary>
+        /// GET invoices
+        /// </summary>
+        //GET api/invoices
+        [HttpGet("")]
+        [ProducesResponseType(typeof(IEnumerable<InvoiceDetailDto>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetInvoices()
+        {
+            var request = new GetInvoices();
+
+            var response = await _mediator.Send(request);
+            return  Ok(response);
         }
 
         /// <summary>
