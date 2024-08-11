@@ -1,4 +1,5 @@
 ﻿using InterviewExercise.Domain.Entities;
+using InterviewExercise.Dtos;
 using Microsoft.EntityFrameworkCore;
 
 namespace InterviewExercise.Data
@@ -34,6 +35,13 @@ namespace InterviewExercise.Data
                 .ToContainer(nameof(CustomerContactMethod))
                 .HasPartitionKey(c => c.Id)
                 .HasKey(c => c.Id);
+
+            //Write enum value as string instead of int to DB
+            modelBuilder.Entity<CustomerContactMethod>()
+            .Property(e => e.Type)
+            .HasConversion(
+                v => v.ToString(),
+                v => (ContactType)Enum.Parse(typeof(ContactType), v));
 
             modelBuilder.Entity<Invoice>()
                 .ToContainer(nameof(Invoice))

@@ -7,23 +7,13 @@ namespace InterviewExercise.Handling
     public abstract class HandlerBase<TRequest, TResponse> : IRequestHandler<TRequest, TResponse>
         where TRequest : IRequest<TResponse>
     {
-        private readonly IDbContextFactory<UnitOfWork> _UowFactory;
-        protected HandlerBase(IDbContextFactory<UnitOfWork> UowFactory)
+        protected readonly UnitOfWork _uow;
+        protected HandlerBase(UnitOfWork uow)
         {
-            _UowFactory = UowFactory;
+            _uow = uow;
         }
 
-        //Must be public due to inheriting from IRequestHandler...
-        public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken)
-        {
-            using var uow = await GetUnitOfWorkAsync(cancellationToken);
-            return await HandleRequest(request, uow, cancellationToken);
-        }
-        protected virtual async Task<UnitOfWork> GetUnitOfWorkAsync(CancellationToken cancellationToken)
-        {
-            return await _UowFactory.CreateDbContextAsync(cancellationToken);
-        }
 
-        protected abstract Task<TResponse> HandleRequest(TRequest request, UnitOfWork uow, CancellationToken cancellationToken);
+        public abstract Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken);
     }
 }

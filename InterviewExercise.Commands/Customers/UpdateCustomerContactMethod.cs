@@ -6,6 +6,8 @@ namespace InterviewExercise.Commands.Customers
 {
     public class UpdateCustomerContactMethod: IRequest<SuccessOrFailureDto>
     {
-        public UpdateCustomerContactMethodDto UpdateContactMethodDto;
+        public Guid ContactMethodId { get; set; }
+        public Guid CustomerId { get; set; }
+        public CustomerContactMethodDto ContactMethodDto { get; set; }
     }
 }

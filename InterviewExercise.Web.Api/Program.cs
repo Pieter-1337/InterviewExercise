@@ -42,11 +42,9 @@ app.MapControllers();
 // Ensure Cosmos DB containers are present at startup of app
 using (var scope = app.Services.CreateScope())
 {
-    var contextFactory = scope.ServiceProvider.GetRequiredService<IDbContextFactory<UnitOfWork>>();
-    using (var context = contextFactory.CreateDbContext())
-    {
-        await context.EnsureCreatedAsync();
-    }
+    var context = scope.ServiceProvider.GetRequiredService<UnitOfWork>();
+    await context.EnsureCreatedAsync();
+    
 }
 app.Run();
 
@@ -58,9 +56,17 @@ void ConfigureSettings(IServiceCollection services)
 
 void ConfigureServices(IServiceCollection services)
 {
-    services.AddDbContextFactory<UnitOfWork>((sp,optionsBuilder) => {
+    //services.AddDbContextFactory<UnitOfWork>((sp,optionsBuilder) => {
+    //    var settings = sp.GetRequiredService<ICosmosDBSettings>();
+    //    optionsBuilder.UseCosmos(
+    //        connectionString: settings.ConnectionString,
+    //        databaseName: settings.DatabaseName
+    //    );
+    //});
+    services.AddDbContext<UnitOfWork>((sp, options) =>
+    {
         var settings = sp.GetRequiredService<ICosmosDBSettings>();
-        optionsBuilder.UseCosmos(
+        options.UseCosmos(
             connectionString: settings.ConnectionString,
             databaseName: settings.DatabaseName
         );

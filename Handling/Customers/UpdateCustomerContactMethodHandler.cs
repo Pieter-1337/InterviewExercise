@@ -7,30 +7,24 @@ namespace InterviewExercise.Handling.Customers
 {
     public class UpdateCustomerContactMethodHandler : HandlerBase<UpdateCustomerContactMethod, SuccessOrFailureDto>
     {
-        public UpdateCustomerContactMethodHandler(IDbContextFactory<UnitOfWork> uowFactory)
-            : base(uowFactory)
+        public UpdateCustomerContactMethodHandler(UnitOfWork uow)
+            : base(uow)
         { }
 
-        protected override async Task<SuccessOrFailureDto> HandleRequest(UpdateCustomerContactMethod request, UnitOfWork uow, CancellationToken cancellationToken)
+        public override async Task<SuccessOrFailureDto> Handle(UpdateCustomerContactMethod request, CancellationToken cancellationToken)
         {
-            var contactMethod = await uow.CustomerContactMethods.FirstOrDefaultAsync(ccm => ccm.Id == request.UpdateContactMethodDto.Id);//request.UpdateContactMethodDto.Id);
+            var contactMethod = await _uow.CustomerContactMethods.FirstOrDefaultAsync(ccm => ccm.Id == request.ContactMethodId);
+
+            contactMethod.Type = request.ContactMethodDto.Type;
+            contactMethod.Value = request.ContactMethodDto.Value;
+
+            await _uow.SaveChangesAsync();
 
             var response = new SuccessOrFailureDto
             {
-                Success = false,
-                Message = "No contactMethod found"
+                Message = "ContactMethod updated",
+                Success = true
             };
-
-            if (contactMethod != null)
-            {
-                contactMethod.Type = request.UpdateContactMethodDto.Type;
-                contactMethod.Value = request.UpdateContactMethodDto.Value;
-
-                response.Message = "ContactMethod updated";
-                response.Success = true;
-            }
-
-            await uow.SaveChangesAsync();
 
             return response;
         }

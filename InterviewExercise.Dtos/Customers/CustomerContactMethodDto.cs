@@ -2,7 +2,7 @@
 
 namespace InterviewExercise.Dtos.Customers
 {
-    public class CustomerContactMethodDto : DtoBase
+    public class CustomerContactMethodDto
     {
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public ContactType Type { get; set; }

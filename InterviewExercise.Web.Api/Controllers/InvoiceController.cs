@@ -4,19 +4,26 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using InterviewExercise.Commands.Invoices;
+using FluentValidation.Results;
+using InterviewExercise.Data;
+using InterviewExercise.Validation.Commands.Invoices;
 
 namespace InterviewExercise.Web.Api.Controllers
 {
     [Route("api/invoices")]
     [AllowAnonymous]
     [ApiController]
-    public class InvoiceController : ControllerBase
+    [ProducesResponseType(typeof(ValidationResult), StatusCodes.Status400BadRequest)]
+    public class InvoiceController : CustomControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly UnitOfWork _unitOfWork;
 
-        public InvoiceController(IMediator mediator)
+        public InvoiceController(IMediator mediator, UnitOfWork unitOfWork)
+            :base(unitOfWork)
         {
             _mediator = mediator;
+            _unitOfWork = unitOfWork;
         }
 
         /// <summary>
@@ -28,6 +35,10 @@ namespace InterviewExercise.Web.Api.Controllers
         public async Task<IActionResult> CreateInvoice([FromBody] InvoiceDto invoice)
         {
             var request = new CreateInvoice { Invoice = invoice };
+
+            var result = await Validate<CreateInvoiceValidator, CreateInvoice>(request);
+            if (!result.IsValid) return BadRequest(result);
+
             var response = await _mediator.Send(request);
             return StatusCode(StatusCodes.Status201Created, response);
         }
@@ -38,10 +49,17 @@ namespace InterviewExercise.Web.Api.Controllers
         //PUT api/invoices/{invoiceId}
         [HttpPut("{invoiceId}")]
         [ProducesResponseType(typeof(SuccessOrFailureDto), StatusCodes.Status200OK)]
-        public async Task<IActionResult> UpdateInvoice(Guid invoiceId, [FromBody] UpdateInvoiceDto updateInvoiceDto)
+        public async Task<IActionResult> UpdateInvoice(Guid invoiceId, [FromBody] InvoiceDto invoice)
         {
-            updateInvoiceDto.Id = invoiceId;
-            var request = new UpdateInvoice { Invoice = updateInvoiceDto };
+            var request = new UpdateInvoice 
+            { 
+                InvoiceId = invoiceId,
+                Invoice = invoice 
+            };
+
+            var result = await Validate<UpdateInvoiceValidator, UpdateInvoice>(request);
+            if (!result.IsValid) return BadRequest(result);
+
             var response = await _mediator.Send(request);
             return Ok(response);
         }
