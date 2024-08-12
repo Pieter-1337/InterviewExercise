@@ -7,6 +7,6 @@ namespace InterviewExercise.Dtos.Customers
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public ContactType Type { get; set; }
         public string Value { get; set; }
-        public string TypeAsString => Type.ToString();
+        public virtual string TypeAsString => Type.ToString();
     }
 }

@@ -24,7 +24,7 @@ namespace InterviewExercise.Handling.Customers
                 //This probably should work differently with config in ModelBuilder not sure how this works in cosmosDB...
                 CustomerContactMethods = _uow.CustomerContactMethods.Where(ccm => ccm.CustomerId == c.Id).Select(ccm => new CustomerContactMethodDetailDto
                 {
-                    Id= ccm.Id,
+                    Id = ccm.Id,
                     Type = ccm.Type,
                     Value = ccm.Value
                 }).ToArray()
