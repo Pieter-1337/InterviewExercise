@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.Application", "3.Applicat
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.Web applications", "4.Web applications", "{5D17C9B0-BFF1-4A3B-A364-CDA21472B28A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{B6EABF69-5430-41E2-BE23-73EFE3B555F8}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5.Tests", "5.Tests", "{B6EABF69-5430-41E2-BE23-73EFE3B555F8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InterviewExercise.CrossCutting", "InterviewExercise.CrossCutting\InterviewExercise.CrossCutting.csproj", "{A671F02C-4B30-4B68-8F2A-F080EA1EA6AF}"
 EndProject
@@ -31,7 +31,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InterviewExercise.Commands"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InterviewExercise.Queries", "InterviewExercise.Queries\InterviewExercise.Queries.csproj", "{6D530F2B-B6D2-4D7F-84FF-5D908915F9C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterviewExercise.Validation", "InterviewExercise.Validation\InterviewExercise.Validation.csproj", "{D6A0409A-EDBD-4D70-9AC0-0294099E03F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InterviewExercise.Validation", "InterviewExercise.Validation\InterviewExercise.Validation.csproj", "{D6A0409A-EDBD-4D70-9AC0-0294099E03F3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{7615BB97-9289-4F3C-AD5C-212A3EA3E85D}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
