@@ -24,5 +24,5 @@ Swagger will start and you should be able to:
 
 ## Note
 
-Tests are present due to lack of time, however i would have create validator tests, handling tests
+Tests are not present due to lack of time, however i would have created validator tests and handling tests
 
