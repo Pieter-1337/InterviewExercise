@@ -9,7 +9,6 @@ namespace InterviewExercise.Domain.Entities
         public Guid CustomerId { get; set; }
         public Customer Customer { get; set; }
 
-        //If we use automapper set ignore attributes on the relationships!
         #region relationships
         public virtual ICollection<InvoiceLine> InvoiceLines { get; set; } = new Collection<InvoiceLine>();
         #endregion

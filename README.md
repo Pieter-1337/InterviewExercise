@@ -24,5 +24,7 @@ Swagger will start and you should be able to:
 
 ## Note
 
-Tests are not present due to lack of time, however i would have created validator tests and handling tests
+- Tests are not present due to lack of time, however i would have created validator tests and handling tests
+- My Experience with Cosmos DB is limited and I suspect the data should probably have been embedded in the main domain entities (Invoice, Customer) more, I added containers for each domain entity in this exercise (which is more relational...)
+-
 
